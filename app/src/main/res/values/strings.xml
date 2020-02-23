@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="app_name">memo</string>
+    <string name="take_picture">사진찍기</string>
+    <string name="album">앨범</string>
+    <string name="image_url">사진 url</string>
+    <string name="notepad">메모장</string>
+    <string name="add">추가</string>
+    <string name="add_url">URl 추가</string>
+
+    <!--    toast message-->
+    <string name="toast_filetype_error">jpg, png, bmp 형식만 지원합니다</string>
+    <string name="toast_url_error">url 형식 오류</string>
+    <string name="toast_save_error">저장에 실패햐였습니다</string>
+    <string name="toast_update_error">수정에 실패하였습니다</string>
+    <string name="toast_delete_error">삭제에 실패하였습니다</string>
+    <string name="toast_memos_read_error">데이터를 가져오지 못합니</string>
+
+    <!-- edit_hint-->
+    <string name="edit_url">http(s)://</string>
+    <string name="edit_title">제목을 입력해주세요</string>
+    <string name="edit_description">내용을 입력해주세요</string>
+</resources>
