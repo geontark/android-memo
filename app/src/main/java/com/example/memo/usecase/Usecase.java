@@ -18,8 +18,10 @@ import androidx.core.content.FileProvider;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.memo.R;
 import com.example.memo.activities.MemoDetailActivity;
 import com.example.memo.database.Memo;
+import com.example.memo.resultManager.ResultMangerCode;
 import com.example.memo.utilities.Permission;
 
 import java.io.File;
@@ -68,7 +70,7 @@ public class Usecase {
                         file);
 
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                ((Activity) mContext).startActivityForResult(intent, 1000);
+                ((Activity) mContext).startActivityForResult(intent, ResultMangerCode.CAMERA);
             }
 
         }
@@ -79,7 +81,7 @@ public class Usecase {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT); // ACTION_PICK은 사용하지 말것, deprecated + formally
         intent.setType("image/*");
-        ((Activity) mContext).startActivityForResult(intent, 1001);
+        ((Activity) mContext).startActivityForResult(intent, ResultMangerCode.ALBUM);
     }
 
     //    메모 자세히보기 엑티비티로 이동
@@ -143,13 +145,13 @@ public class Usecase {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(message);
-                builder.setPositiveButton("예",
+                builder.setPositiveButton(mContext.getString(R.string.yse),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 emitter.onSuccess(true);
                             }
                         });
-                builder.setNegativeButton("아니오",
+                builder.setNegativeButton(mContext.getString(R.string.no),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 emitter.onSuccess(false);

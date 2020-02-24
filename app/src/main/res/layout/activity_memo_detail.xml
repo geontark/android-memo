@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="memoEditViewModel"
-            type="com.example.memo.viewmodels.MemoEditViewModel"/>
+            type="com.example.memo.viewmodels.MemoEditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,77 +16,81 @@
 
         <include
             android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/tool_bar"/>
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:singleLine="true"
-            android:inputType="text"
-            android:text="@={memoEditViewModel.title}"
-            tools:text="title"
             android:hint="@string/edit_title"
+            android:inputType="text"
+            android:singleLine="true"
+            android:text="@={memoEditViewModel.title}"
+            android:visibility="invisible"
             app:is_visible="@{memoEditViewModel.isEdit||memoEditViewModel.isAdd}"
-            android:visibility="invisible" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+            tools:text="title" />
 
         <HorizontalScrollView
             android:id="@+id/title_text_scroll"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tool_bar"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            app:is_gone="@{memoEditViewModel.isAdd || memoEditViewModel.isEdit}">
+            app:is_gone="@{memoEditViewModel.isAdd || memoEditViewModel.isEdit}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_bar">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:singleLine="true"
+                android:gravity="center"
                 android:text="@={memoEditViewModel.title}"
-                tools:text="title"
-                android:singleLine="true"/>
+                tools:text="title" />
         </HorizontalScrollView>
 
         <LinearLayout
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/description"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/title">
 
             <LinearLayout
                 android:id="@+id/url_add_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:padding="5dp"
                 android:orientation="horizontal"
+                android:padding="5dp"
                 app:is_gone="@{!memoEditViewModel.urlAddView}">
+
                 <EditText
-                    android:text="@={memoEditViewModel.inputUrl}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="15sp"
-                    android:layout_weight="3"
                     android:layout_marginRight="5dp"
-                    android:hint="@string/edit_url" />
+                    android:layout_weight="3"
+                    android:hint="@string/edit_url"
+                    android:text="@={memoEditViewModel.inputUrl}"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorNaver"
+                    android:onClick="@{() -> memoEditViewModel.onClickImageUrl()}"
                     android:text="@string/add_url"
                     android:textColor="@color/colorWihte"
-                    android:background="@color/colorNaver"
-                    android:textSize="15sp"
-                    android:onClick="@{() -> memoEditViewModel.onClickImageUrl()}"/>
+                    android:textSize="15sp" />
             </LinearLayout>
 
 
@@ -96,51 +100,53 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 app:is_gone="@{memoEditViewModel.isAdd ? false : !memoEditViewModel.isEdit}">
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/take_picture"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="@color/colorNaver"
                     android:gravity="center"
-                    android:textSize="15sp"
                     android:onClick="@{() -> memoEditViewModel.onClickPicture()}"
+                    android:text="@string/take_picture"
                     android:textColor="@color/colorWihte"
-                    android:background="@color/colorNaver"
-                    android:layout_margin="5dp"/>
+                    android:textSize="15sp" />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/album"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/colorWihte"
                     android:background="@color/colorNaver"
-                    android:textSize="15sp"
+                    android:gravity="center"
                     android:onClick="@{() -> memoEditViewModel.onClickAlbum()}"
-                    android:layout_margin="5dp"/>
+                    android:text="@string/album"
+                    android:textColor="@color/colorWihte"
+                    android:textSize="15sp" />
+
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/image_url"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/colorWihte"
                     android:background="@color/colorNaver"
-                    android:textSize="15sp"
+                    android:gravity="center"
                     android:onClick="@{() -> memoEditViewModel.setUrlAddView(true)}"
-                    android:layout_margin="5dp"/>
-        </LinearLayout>
+                    android:text="@string/image_url"
+                    android:textColor="@color/colorWihte"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/image_list"
-                app:bind_img_items="@{memoEditViewModel.imgUrls}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="horizontal"
+                app:bind_img_items="@{memoEditViewModel.imgUrls}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/memo_img_item" />
         </LinearLayout>
-
 
 
         <EditText
@@ -148,34 +154,36 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:gravity="top"
-            app:layout_constraintTop_toBottomOf="@id/image_container"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/colorWihte"
-            android:text="@={memoEditViewModel.description}"
+            android:gravity="top"
             android:hint="@string/edit_description"
-            tools:text="description description description description description"
+            android:text="@={memoEditViewModel.description}"
             android:visibility="invisible"
-            app:is_visible="@{memoEditViewModel.isAdd ||memoEditViewModel.isEdit}"/>
+            app:is_visible="@{memoEditViewModel.isAdd ||memoEditViewModel.isEdit}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_container"
+            tools:text="description description description description description" />
 
         <TextView
             android:id="@+id/description_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:gravity="top"
-            app:layout_constraintTop_toBottomOf="@id/image_container"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/colorWihte"
+            android:gravity="top"
             android:scrollbars="vertical"
-            app:add_scroll="@{true}"
             android:text="@={memoEditViewModel.description}"
-            tools:text="description description description description description"
-            app:is_gone="@{memoEditViewModel.isAdd ||memoEditViewModel.isEdit}"/>
+            app:add_scroll="@{true}"
+            app:is_gone="@{memoEditViewModel.isAdd ||memoEditViewModel.isEdit}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_container"
+            tools:text="description description description description description" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

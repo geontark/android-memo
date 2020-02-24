@@ -3,6 +3,7 @@ package com.example.memo.adapters.databinding;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,6 +42,8 @@ public class CustomDataBindingAdapter {
                     .load(imageUrls.get(0))
                     .centerCrop()
                     .into(view);
+        }else{
+            view.setImageResource(0);
         }
     }
 
@@ -85,7 +88,6 @@ public class CustomDataBindingAdapter {
         if (isScroll) {
             view.setMovementMethod(new ScrollingMovementMethod());
         }
-
     }
 
     // EditText 2way 바이딩

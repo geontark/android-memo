@@ -13,6 +13,7 @@ import com.example.memo.listener.ResultListener;
 import com.example.memo.provider.ResourceProvider;
 import com.example.memo.repositories.MemoRepository;
 import com.example.memo.repositories.Repository;
+import com.example.memo.resultManager.ResultMangerCode;
 import com.example.memo.usecase.Usecase;
 import com.example.memo.utilities.Utils;
 
@@ -109,12 +110,13 @@ public class MemoEditViewModel {
 
                 if (resultCode == RESULT_OK) {
                     switch (requestCode) {
-                        case 1000:  // 카메라 사진 선택
+                        case ResultMangerCode.CAMERA: // 카메라 사진 선택
+
                             if (tempImagePath != null) {
                                 imgUrls.add(tempImagePath);
                             }
                             break;
-                        case 1001:  // 앨범 사진 선택
+                        case ResultMangerCode.ALBUM:  // 앨범 사진 선택
                             imgUrls.add(data.getData().toString());
                             break;
 

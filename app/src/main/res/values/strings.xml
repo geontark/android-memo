@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="yse">네</string>
+    <string name="no">아니오</string>
     <string name="app_name">memo</string>
     <string name="take_picture">사진찍기</string>
     <string name="album">앨범</string>
@@ -14,7 +16,7 @@
     <string name="toast_save_error">저장에 실패햐였습니다</string>
     <string name="toast_update_error">수정에 실패하였습니다</string>
     <string name="toast_delete_error">삭제에 실패하였습니다</string>
-    <string name="toast_memos_read_error">데이터를 가져오지 못합니</string>
+    <string name="toast_memos_read_error">데이터를 가져오지 못합니다</string>
 
     <!-- edit_hint-->
     <string name="edit_url">http(s)://</string>

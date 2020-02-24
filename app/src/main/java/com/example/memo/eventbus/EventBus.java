@@ -5,6 +5,9 @@ import org.json.JSONObject;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
+/**
+ * viewmodel간의 통신을 위한 이벤트 버스
+ */
 public class EventBus {
     private static EventBus mEventBus;
     private PublishSubject<JSONObject> mSubject;
