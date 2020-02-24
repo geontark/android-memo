@@ -32,7 +32,6 @@ public class MemoListViewModel {
     private ResourceProvider mResourceProvider;
     public ObservableArrayList<Memo> mMemos = new ObservableArrayList<>();
 
-
     private LifecycleListener mLifecycleListener;
 
     public MemoListViewModel(ResourceProvider resProvier, Usecase usecase, Repository repository) {

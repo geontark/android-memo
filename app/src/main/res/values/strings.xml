@@ -1,5 +1,4 @@
 <resources>
-
     <string name="yse">네</string>
     <string name="no">아니오</string>
     <string name="app_name">memo</string>
@@ -7,6 +6,7 @@
     <string name="album">앨범</string>
     <string name="image_url">사진 url</string>
     <string name="notepad">메모장</string>
+    <string name="memo">메모</string>
     <string name="add">추가</string>
     <string name="add_url">URl 추가</string>
 
@@ -23,4 +23,7 @@
     <string name="edit_url">http(s)://</string>
     <string name="edit_title">제목을 입력해주세요</string>
     <string name="edit_description">내용을 입력해주세요</string>
+
+    <!--    alert-->
+    <string name="alert_memo_delete">메모를 삭제하시겠니까?</string>
 </resources>

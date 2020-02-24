@@ -3,6 +3,7 @@ package com.example.memo.viewmodels;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.ViewModel;
 
+import com.example.memo.R;
 import com.example.memo.eventbus.EventBus;
 import com.example.memo.eventbus.EventBusCode;
 import com.example.memo.listener.LifecycleListener;
@@ -24,9 +25,11 @@ public class ToolbarViewModel {
 
     private LifecycleListener mLifecycleListener;
     private Usecase mUseCase;
+    private ResourceProvider mResourceProvider;
 
     public ToolbarViewModel(ResourceProvider resProvier, Usecase usecase) {
         mUseCase = usecase;
+        mResourceProvider = resProvier;
         init();
     }
 
@@ -42,7 +45,7 @@ public class ToolbarViewModel {
         JSONObject json = new JSONObject();
         int code = EventBusCode.TOOL_BAR_DONE;
         try {
-            json.put("code", code);
+            json.put(EventBusCode.CODE, code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -59,7 +62,8 @@ public class ToolbarViewModel {
         JSONObject json = new JSONObject();
         int code = EventBusCode.TOOL_BAR_MODIFY;
         try {
-            json.put("code", code);
+
+            json.put(EventBusCode.CODE, code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -69,16 +73,16 @@ public class ToolbarViewModel {
 
     //    삭제 버튼
     public void deleteBtn() {
-        mUseCase.callAlertDialog("메모를 삭제할까요?")
+        mUseCase.callAlertDialog(mResourceProvider.getString(R.string.alert_memo_delete))
                 .subscribe(new Consumer() {
                     @Override
                     public void accept(Object o) throws Throwable {
                         Boolean isOk = (Boolean) o;
                         if (isOk) {
                             JSONObject json = new JSONObject();
-                            int code = 1003;
+                            int code = EventBusCode.TOOL_BAR_DELETE;
                             try {
-                                json.put("code", code);
+                                json.put(EventBusCode.CODE, code);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

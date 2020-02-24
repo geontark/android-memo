@@ -25,10 +25,16 @@ import org.json.JSONObject;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
+
+/**
+ * 메모 추가, 수정, 읽기가 가능한 엑티비티
+ * 전 엑티비티에서 발생한 이벤트에따라 분기함
+ */
 public class MemoDetailActivity extends BaseActivity {
 
     final static String TAG = MemoDetailActivity.class.getSimpleName();
 
+    // 이벤트버스에 등록한 구독 취소하기 위한 변수
     private Disposable mDisposalble;
 
     //    viewmodels
@@ -51,10 +57,10 @@ public class MemoDetailActivity extends BaseActivity {
 
         mToolbarViewModel = new ToolbarViewModel(mResProvider, mUsecase);
 
-        Memo memo = (Memo) getIntent().getSerializableExtra("memo");
+        Memo memo = (Memo) getIntent().getSerializableExtra(mResProvider.getString(R.string.memo));
         mRepository = new Repository(this);
 
-        if (memo != null) {   // 메모 수정
+        if (memo != null) {   // 메모 읽기 and 수정
             mMemoEditViewModel = new MemoEditViewModel(mResProvider, mUsecase, mRepository, memo);
             mToolbarViewModel.setVisibleModifyBtn(true);
             mToolbarViewModel.setVisibleDoneBtn(false);
@@ -76,21 +82,22 @@ public class MemoDetailActivity extends BaseActivity {
         mAdapter = new ImageAdapter();
         binding.imageList.setAdapter(mAdapter);
 
-
+//      viewmodel간의정 eventBus를 통한 통신
         Consumer<JSONObject> consumer = new Consumer<JSONObject>() {
             @Override
             public void accept(JSONObject data) throws Throwable {
 
                 int code = 0;
                 try {
-                    code = data.getInt("code");
+
+                    code = data.getInt(EventBusCode.CODE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 switch (code) {
                     case EventBusCode.MEMO_IMG_ITEM_DELETE:
                         try {
-                            mMemoEditViewModel.deleteImg(data.getInt("data"));
+                            mMemoEditViewModel.deleteImg(data.getInt(EventBusCode.DATA));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -127,6 +134,7 @@ public class MemoDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//       해당 페이지에서 등록한  eventbus 구독 해
         if (mDisposalble != null) {
             mDisposalble.dispose();
         }

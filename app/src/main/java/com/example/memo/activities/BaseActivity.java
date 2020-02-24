@@ -12,6 +12,10 @@ import com.example.memo.listener.LifecycleListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 라이프 사이클 이벤트를 등록되어 있는 리스너에게 알리기 위한 엑티비티
+ * 모든 엑티비티는 BaseActivity를 상속받고, viewmodel에서는 리스너를 등록하여 라이프 사이클 이벤트를 알수 있음
+ */
 public class BaseActivity extends Activity {
 
     private LifecycleOwner mLifecycleOwner =new LifecycleOwner();

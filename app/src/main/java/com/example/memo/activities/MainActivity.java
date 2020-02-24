@@ -14,6 +14,10 @@ import com.example.memo.viewmodels.FloatbtnViewModel;
 import com.example.memo.viewmodels.ToolbarViewModel;
 import com.example.memo.viewmodels.MemoListViewModel;
 
+/**
+ * 첫 진입하는 엑티비티
+ * 작성한 모든 메모를 확인 할 수 있음
+ */
 public class MainActivity extends BaseActivity {
 
     final static String TAG = MainActivity.class.getSimpleName();
