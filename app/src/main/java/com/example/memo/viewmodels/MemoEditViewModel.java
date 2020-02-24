@@ -12,6 +12,7 @@ import com.example.memo.database.Memo;
 import com.example.memo.listener.ResultListener;
 import com.example.memo.provider.ResourceProvider;
 import com.example.memo.repositories.MemoRepository;
+import com.example.memo.repositories.NetworkRepository;
 import com.example.memo.repositories.Repository;
 import com.example.memo.resultManager.ResultMangerCode;
 import com.example.memo.usecase.Usecase;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -37,18 +40,19 @@ import static android.app.Activity.RESULT_OK;
 public class MemoEditViewModel {
     final static String TAG = "MemoEditViewModel";
 
-
+    // subscribe 라이프 사이클에 맞게 해
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     /**
      * 새로운 메모 작성 모드
-     *  isAdd = T
-     *  메모 읽기 모드
-     *  isAdd = F
-     *  isEdit = F
-     *  메모 수정 모드
-     *  isEdit = T
-     *  isAdd = F
-     *
-     *  플래그값에 따라 보이는 뷰가 다름
+     * isAdd = T
+     * 메모 읽기 모드
+     * isAdd = F
+     * isEdit = F
+     * 메모 수정 모드
+     * isEdit = T
+     * isAdd = F
+     * <p>
+     * 플래그값에 따라 보이는 뷰가 다름
      */
     // edit 모드
     public ObservableField<Boolean> isEdit = new ObservableField<>(false);
@@ -69,6 +73,7 @@ public class MemoEditViewModel {
     private ResultListener mResultListener;
     private Usecase mUsecase;
     private MemoRepository mMemoRepository;
+    private NetworkRepository mNetworkRepository;
     private ResourceProvider mResourceProvider;
 
     // 카메라 작동시 임시로 파일 경로 소유할 변수
@@ -79,6 +84,7 @@ public class MemoEditViewModel {
         this.mResourceProvider = resProvier;
         this.mUsecase = usecase;
         this.mMemoRepository = repository.getMemoRepository();
+        this.mNetworkRepository = repository.getNetworkRepository();
         mUsecase = usecase;
         setAdd(true);
         setEdit(false);
@@ -94,6 +100,8 @@ public class MemoEditViewModel {
         description.set(memo.getDescription());
 
         this.mMemoRepository = repository.getMemoRepository();
+        this.mNetworkRepository = repository.getNetworkRepository();
+
         for (String url : memo.getImgs()) {
             imgUrls.add(url);
         }
@@ -152,8 +160,8 @@ public class MemoEditViewModel {
                 return;
             }
 
-            // url 이미지 다운로드
-            mUsecase.getBitmapFromUrl(result)
+//            url 이미지 요청
+            mNetworkRepository.reqBitmapFromUrl(result)
                     .subscribe(new Consumer<Bitmap>() {
                         @Override
                         public void accept(Bitmap bitmap) throws Throwable {
@@ -166,7 +174,6 @@ public class MemoEditViewModel {
                             imgUrls.add(tempImagePath);
                         }
                     });
-
             inputUrl.set("");
             setUrlAddView(false);
         }
@@ -212,7 +219,6 @@ public class MemoEditViewModel {
             return;
         }
     }
-
 
     //    메모 추가하기
     public void add() {

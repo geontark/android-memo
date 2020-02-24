@@ -12,4 +12,8 @@ public class Repository {
     public MemoRepository getMemoRepository() {
         return new MemoRepository(mContext);
     }
+
+    public NetworkRepository getNetworkRepository() {
+        return new NetworkRepository(mContext);
+    }
 }
