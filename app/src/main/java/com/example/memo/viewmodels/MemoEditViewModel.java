@@ -226,7 +226,7 @@ public class MemoEditViewModel {
         urls.addAll(imgUrls);
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String id = "memo_" + timeStamp;
-        String date = new SimpleDateFormat("yyyy.MM.dd HH:mm").format(new Date());
+        String date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(new Date());
         Memo memo = new Memo(id, title.get(), description.get(), date, urls);
 
         Completable.fromAction(() -> mMemoRepository.insert(memo))

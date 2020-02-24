@@ -32,6 +32,7 @@ public class Utils {
         result += date.substring(8,10);
         result += date.substring(11,13);
         result += date.substring(14,16);
+        result += date.substring(17,19);
         return Long.valueOf(result);
     }
 

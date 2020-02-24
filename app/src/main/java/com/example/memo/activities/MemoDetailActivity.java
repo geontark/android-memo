@@ -12,9 +12,9 @@ import com.example.memo.database.Memo;
 import com.example.memo.databinding.ActivityMemoDetailBinding;
 import com.example.memo.eventbus.EventBus;
 import com.example.memo.eventbus.EventBusCode;
+import com.example.memo.provider.ResourceProvider;
 import com.example.memo.repositories.Repository;
 import com.example.memo.resultManager.ResultManager;
-import com.example.memo.provider.ResourceProvider;
 import com.example.memo.usecase.Usecase;
 import com.example.memo.viewmodels.MemoEditViewModel;
 import com.example.memo.viewmodels.ToolbarViewModel;
@@ -56,8 +56,9 @@ public class MemoDetailActivity extends BaseActivity {
         mResultManager = new ResultManager();
 
         mToolbarViewModel = new ToolbarViewModel(mResProvider, mUsecase);
+        mAdapter = new ImageAdapter();
 
-        Memo memo = (Memo) getIntent().getSerializableExtra(mResProvider.getString(R.string.memo));
+        Memo memo = (Memo) getIntent().getSerializableExtra("memo");
         mRepository = new Repository(this);
 
         if (memo != null) {   // 메모 읽기 and 수정
@@ -69,17 +70,16 @@ public class MemoDetailActivity extends BaseActivity {
             mToolbarViewModel.setVisibleDoneBtn(true);
             mToolbarViewModel.setVisibleModifyBtn(false);
             mToolbarViewModel.setTitle(mResProvider.getString(R.string.add));
+            mAdapter.setEditMode(true);
         }
 
         mResultManager.register(mMemoEditViewModel.getmResultListener());
 
+//        데이터 바인딩
         ActivityMemoDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_memo_detail);
-
         binding.setMemoEditViewModel(mMemoEditViewModel);
         binding.toolBar.setToolViewModel(mToolbarViewModel);
-
 //        이미지 리사이클러뷰
-        mAdapter = new ImageAdapter();
         binding.imageList.setAdapter(mAdapter);
 
 //      viewmodel간의정 eventBus를 통한 통신

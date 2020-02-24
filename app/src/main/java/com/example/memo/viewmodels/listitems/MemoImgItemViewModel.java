@@ -14,7 +14,6 @@ public class MemoImgItemViewModel {
     public String imgUrl;
     private int position;
 
-
     public MemoImgItemViewModel(String imgUrl,int position) {
         this.imgUrl = imgUrl;
         this.position = position;
