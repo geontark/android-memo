@@ -3,11 +3,8 @@ package com.example.memo.utilities;
 import android.util.Log;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
 
 public class Utils {
     final static String TAG = "Utils";

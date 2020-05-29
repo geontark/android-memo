@@ -1,4 +1,4 @@
-package com.example.memo.listener;
+package com.example.memo.utilities.resultManager;
 
 import android.content.Intent;
 

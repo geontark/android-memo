@@ -1,60 +1,59 @@
 package com.example.memo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.memo.R;
 import com.example.memo.adapters.list.MemoAdapter;
+import com.example.memo.data.MemoRepository;
+import com.example.memo.data.datasource.MemoLocalDataSource;
 import com.example.memo.databinding.ActivityMainBinding;
-import com.example.memo.repositories.Repository;
-import com.example.memo.provider.ResourceProvider;
-import com.example.memo.usecase.Usecase;
-import com.example.memo.viewmodels.FloatbtnViewModel;
-import com.example.memo.viewmodels.ToolbarViewModel;
 import com.example.memo.viewmodels.MemoListViewModel;
 
 /**
  * 첫 진입하는 엑티비티
  * 작성한 모든 메모를 확인 할 수 있음
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     final static String TAG = MainActivity.class.getSimpleName();
 
-    //    viewmodels
+//    viewmodels
     private MemoListViewModel mMemoListViewModel;
-    private ToolbarViewModel mToolbarViewModel;
-    private FloatbtnViewModel mFloatBtnViewModel;
-
     private MemoAdapter mAdapter;
-
-    private ResourceProvider mResProvider;
-    private Usecase mUsecase;
-    private Repository mRepository;
+    private MemoRepository mMemoRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mResProvider = new ResourceProvider(this);
-        mUsecase = new Usecase(this);
-        mRepository = new Repository(this);
-
-        mMemoListViewModel = new MemoListViewModel(mResProvider, mUsecase, mRepository);
-        mToolbarViewModel = new ToolbarViewModel(mResProvider, mUsecase);
-        mToolbarViewModel.setTitle(mResProvider.getString(R.string.notepad));
-        mFloatBtnViewModel = new FloatbtnViewModel(mUsecase);
-
-        register(mMemoListViewModel.getmLifecycleListener());
+        mMemoRepository = MemoRepository.getInstance(MemoLocalDataSource.getInstance(this));
+        mMemoListViewModel = new MemoListViewModel(mMemoRepository);
 
 //        databinding
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setLifecycleOwner(this);
+        binding.setActivity(this);
         binding.setMemoListViewModel(mMemoListViewModel);
         mAdapter = new MemoAdapter();
         binding.memoList.setAdapter(mAdapter);
-        binding.setFloatBtnViewModel(mFloatBtnViewModel);
-        binding.toolBar.setToolViewModel(mToolbarViewModel);
+    }
+
+
+//    메모 목록들 갱신하여 뿌려준다
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mMemoListViewModel.getMemos();
+    }
+
+    //   메모 작성하기 페이지로 이동
+    public void addMemoBtn() {
+        Intent intent = new Intent(this, MemoDetailActivity.class);
+        startActivity(intent);
     }
 }
 

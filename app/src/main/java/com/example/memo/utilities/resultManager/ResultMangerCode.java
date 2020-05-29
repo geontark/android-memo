@@ -1,4 +1,4 @@
-package com.example.memo.resultManager;
+package com.example.memo.utilities.resultManager;
 
 public class ResultMangerCode {
     private static final String TAG = ResultMangerCode.class.getSimpleName();

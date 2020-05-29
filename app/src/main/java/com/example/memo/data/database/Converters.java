@@ -1,4 +1,4 @@
-package com.example.memo.database;
+package com.example.memo.data.database;
 
 import androidx.room.TypeConverter;
 

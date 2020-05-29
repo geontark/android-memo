@@ -1,4 +1,4 @@
-package com.example.memo.database;
+package com.example.memo.data.database;
 
 import android.content.Context;
 
@@ -7,6 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+/**
+ * room 데이터 베이스
+ */
 @Database(entities = {Memo.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {

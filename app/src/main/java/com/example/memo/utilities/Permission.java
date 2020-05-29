@@ -1,16 +1,13 @@
 package com.example.memo.utilities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.example.memo.activities.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,6 @@ public class Permission {
     public Permission(Context context) {
         mContext = context;
     }
-
     public Permission(Context context, ArrayList<String> permissions) {
 
         this.mContext = context;
@@ -51,7 +47,7 @@ public class Permission {
 
                 String[] permission = reqPermissions.toArray(new String[reqPermissionLength]);
 
-                ActivityCompat.requestPermissions((BaseActivity) mContext, permission, successCode);
+                ActivityCompat.requestPermissions((AppCompatActivity) mContext, permission, successCode);
                 return false;
             } else {
                 return true;

@@ -3,7 +3,6 @@ package com.example.memo.adapters.databinding;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,12 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.memo.adapters.list.ImageAdapter;
 import com.example.memo.adapters.list.MemoAdapter;
-import com.example.memo.database.Memo;
-//import com.example.memo.models.Memo;
-
+import com.example.memo.data.database.Memo;
 import java.util.ArrayList;
 
-public class CustomDataBindingAdapter {
+/**
+ *  기본적으로 공통적으로 사용되는 바인딩 어댑터 모음
+ */
+public class DataBindingAdapter {
 
     final static String TAG = "dataBindingAdapter";
 
@@ -64,7 +64,6 @@ public class CustomDataBindingAdapter {
         }
     }
 
-
     @BindingAdapter("is_gone")
     public static void setIsGone(View view, Boolean isGone) {
         if (isGone) {
@@ -76,6 +75,7 @@ public class CustomDataBindingAdapter {
 
 
     @BindingAdapter("bind_img_items")
+    @Deprecated
     public static <T> void setBindImgItems(RecyclerView view, ArrayList<String> items) {
         ImageAdapter adapter = (ImageAdapter) view.getAdapter();
 

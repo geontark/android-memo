@@ -17,7 +17,7 @@ public class BindingViewHolder<T> extends RecyclerView.ViewHolder {
         this.binding = (T) DataBindingUtil.bind(itemView);
     }
 
-    public T binding() {
+    protected T binding() {
         return binding;
     }
 }

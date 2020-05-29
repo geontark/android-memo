@@ -35,31 +35,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 //    리사이클러뷰
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
-
 //    카드뷰
     implementation 'androidx.cardview:cardview:1.0.0'
-
 //    room
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-
 //    플로팅 버튼
     implementation 'com.google.android.material:material:1.1.0'
-
     //gson
     implementation 'com.google.code.gson:gson:2.8.6'
-
 //    글라이드
 //    https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
-//    rxJava
-//    https://github.com/ReactiveX/RxJava
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 }

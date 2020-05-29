@@ -18,7 +18,9 @@ import java.util.List;
 
 /**
  * 한개의 메모에 첨부되어 있는 이미지를 보여주는 어댑터
+ * 이미지 부분 구현하기 전까지는 Deprecated 처리 사용하지 않음
  */
+@Deprecated
 public class ImageAdapter extends RecyclerView.Adapter<BindingViewHolder<MemoImgItemBinding>> {
 
     private List<String> mUrls = new ArrayList<>();
@@ -43,7 +45,7 @@ public class ImageAdapter extends RecyclerView.Adapter<BindingViewHolder<MemoImg
         viewmodel.editMode.set(mEditMode);
         mItemViewModels.add(viewmodel);
 
-        holder.binding().setMemoImgItemViewModel(viewmodel);
+//        holder.binding().setMemoImgItemViewModel(viewmodel);
     }
 
     @Override

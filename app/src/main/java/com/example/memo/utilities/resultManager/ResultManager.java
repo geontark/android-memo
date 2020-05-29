@@ -1,10 +1,6 @@
-package com.example.memo.resultManager;
+package com.example.memo.utilities.resultManager;
 
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-
-import com.example.memo.listener.ResultListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,39 +9,30 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.memo.R;
-import com.example.memo.adapters.list.viewholder.BindingViewHolder;
-import com.example.memo.database.Memo;
-import com.example.memo.databinding.MemoListItemBinding;
-import com.example.memo.usecase.Usecase;
-import com.example.memo.viewmodels.listitems.MemoListItemViewModel;
+import com.example.memo.adapters.list.viewholder.MemoViewHolder;
+import com.example.memo.data.database.Memo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 // 간략하게 메모 목록을 보여주는 리스트의 어댑터
-public class MemoAdapter extends RecyclerView.Adapter<BindingViewHolder<MemoListItemBinding>> {
+public class MemoAdapter extends RecyclerView.Adapter<MemoViewHolder> {
 
-    private static final String TAG = MemoAdapter.class.getName();
-
-    private List<Memo> mMemos = new ArrayList<>();
+    private ArrayList<Memo> mMemos = new ArrayList<>();
     private Context mContext;
-    private Usecase mUsecase;
 
     @NonNull
     @Override
-    public BindingViewHolder<MemoListItemBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MemoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        mUsecase = new Usecase(mContext);
-
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.memo_list_item, parent, false);
-        return new BindingViewHolder<>(view);
+        return new MemoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BindingViewHolder<MemoListItemBinding> holder, int position) {
+    public void onBindViewHolder(@NonNull MemoViewHolder holder, int position) {
         Memo memo = mMemos.get(position);
-        holder.binding().setMemoListItemViewModel(new MemoListItemViewModel(memo, mUsecase));
+        holder.bind(memo);
     }
 
     @Override
@@ -49,7 +40,7 @@ public class MemoAdapter extends RecyclerView.Adapter<BindingViewHolder<MemoList
         return mMemos.size();
     }
 
-    public void addItems(List<Memo> memos) {
+    public void addItems(ArrayList<Memo> memos) {
         if (memos != null) {
             mMemos = memos;
         }

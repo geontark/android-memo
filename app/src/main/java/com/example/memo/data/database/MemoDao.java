@@ -1,10 +1,11 @@
-package com.example.memo.database;
+package com.example.memo.data.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
@@ -17,6 +18,8 @@ public interface MemoDao {
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
 
+    @Query("SELECT * FROM Memo WHERE id = :memoId")
+    Memo getMemo(String memoId);
 
     @Update(onConflict = REPLACE)
     void update(Memo memo);
@@ -24,4 +27,6 @@ public interface MemoDao {
     @Query("DELETE FROM Memo WHERE id = :memoId")
     void delete(String memoId);
 
+    @Query("DELETE FROM Memo")
+    void deleteAll();
 }
